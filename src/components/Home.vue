@@ -1,0 +1,223 @@
+<template>
+<body>
+    
+    <header class="contener">
+        <div class="logo-content">
+            
+            <router-link to="/addemployee"> <img src="../assets/aadressbookimage.png" alt="" class="logo-content-img"/></router-link>
+            <div>
+                <span class="addr">ADDRESS</span><br />
+                <span class="book">BOOK</span>
+            </div>
+        </div>
+    </header>
+    <div class="header-content">
+        <div class="emp-detail-text">Employee Details
+            <div class="emp-count">
+               {{count}}
+            </div>
+        </div>
+        <div class="add-button">
+           <router-link to="/addemployee"> <button class="button">Add User</button>
+        </router-link>
+        </div>
+</div>
+<div id="table-main">
+   
+      
+   <DisplayHome/>
+   
+    </div>
+</body>
+</template>
+<script>
+import AddressBookService from "../service/AddressBookService";
+import DisplayHome from './DisplayHome.vue'
+export default {
+    name: 'Home',
+    components: {
+        DisplayHome
+    },
+    data(){
+        return {
+            count:0
+        }
+    },
+    methods:{
+     getContactCount(){
+            AddressBookService.getContactCount().then((response) => {
+              console.log(response.data.data);
+                this.count = response.data.data;   
+            });
+        },
+        
+    },
+     created() {
+        this.getContactCount();
+    }
+}
+</script>
+<style>
+body {
+    margin: 0;
+    height: 100%;
+}
+
+.header {
+    padding: 15px 0;
+    background-color: #ffffff;
+}
+
+.contener {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid #008CFF;
+}
+
+.logo-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 0px solid green;
+    width: 80%;
+}
+
+.logo-content-img {
+    border: solid 0px #42515f;
+}
+
+.addr {
+    font: normal normal bold 20px/25px Montserrat;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 0px;
+    color: #1d8cf5;
+    text-transform: capitalize;
+}
+
+.book{
+    font: normal normal bold 20px/25px Montserrat;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 0px;
+    color:black;
+    text-transform: capitalize;
+}
+* {
+    box-sizing: border-box;
+}
+
+
+.main-content{
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh-80px);
+    background-color: #f7f7f7;
+    padding: 30px 0 10px;
+    box-sizing: border-box;
+  }
+  
+  .header-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    padding-bottom: 25px;
+  }
+  
+  .emp-detail-text{
+    font: normal normal bold 24px/25px Roboto;
+    margin-right:700px;
+    letter-spacing: 0px;
+    color: #42515f;
+    opacity: 1;
+  }
+  
+  .emp-count{
+    background-color:#1d8cf5;
+    color: #ffffff;
+    border-radius: 42%;
+    font-size: 16px;
+    width: 26px;
+    text-align: center;
+    display: inline-block;
+    
+  }
+  
+ .add-button{
+    font: normal normal normal 22px/29px Roboto;
+    letter-spacing: 0px;
+    color: black;
+    opacity: 1;
+    background: 0% 0% no-repeat padding-box;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 18px;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  
+  #table-main{
+    width: 90%;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+.table{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    min-width: 800px;
+}
+
+td, th{
+    text-align: left;
+    padding: 5px 8px;
+    border: 0px solid #dddddd;
+}
+
+th{
+    text-align: left;
+    font: normal normal normal 16px/24px Roboto;
+    letter-spacing: 0px;
+    color: #658292;
+    text-transform: uppercase;
+    opacity: 1;
+    border: 0px solid #dddddd;
+}
+
+tr:not(:first-child){
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+    
+}
+
+td{
+    font: normal normal normal 17px/21px Roboto;
+    letter-spacing: 0px;
+    color: #3d3d3d;
+    opacity: 1;
+    height: 48px;
+}
+
+td:first-child{
+    font: normal normal normal 17px/21px Roboto;
+    letter-spacing: 0px;
+    color: #3d3d3d;
+    opacity: 1;
+    height: 48px;;
+}
+
+td img:first-child{
+    margin-right: 10px;
+}
+
+td img{
+    cursor: pointer;
+}
+</style>
